@@ -1,8 +1,12 @@
 package com.example.controller;
 
+import com.example.dto.ImageDTO;
 import com.example.entities.Image;
 import com.example.service.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +18,10 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @PostMapping("/create")
-    public Image saveImage(@RequestBody Image image) {
-
-        return null;
+    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Image> saveImage(@RequestBody ImageDTO imageDto) {
+        Image img1 = imageService.createImage(imageDto);
+        return new ResponseEntity<>(img1, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
@@ -25,17 +29,17 @@ public class ImageController {
         return imageService.updateImage(image, id);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Image> getImages() {
         return imageService.getAllImages();
     }
 
-    @GetMapping
+    @GetMapping("/{imageId}")
     public Image getImageById(@PathVariable Long imageId) {
         return imageService.getImageById(imageId);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{imageId}")
     public void deleteImage(@PathVariable Long imageId) {
         imageService.deleteImageById(imageId);
     }
