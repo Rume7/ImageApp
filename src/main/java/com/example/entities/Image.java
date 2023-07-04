@@ -5,29 +5,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
 @JsonSerialize
-public class Image {
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "image_name")
     private String name;
 
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
+    @Column(name = "image_tag")
     private List<Tag> tags;
 
-    public Image(String name, List<Tag> tags) {
+    public Image() {
+        this.tags = new ArrayList<>();
+    }
+
+    public Image(String name, List<Tag> tagsAdded) {
         this.name = name;
-        this.tags = tags;
+        this.tags = new ArrayList<>();
+        tagsAdded.stream().forEach(tag -> tags.add(tag));
     }
 }
