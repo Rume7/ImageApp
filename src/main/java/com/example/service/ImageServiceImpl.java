@@ -8,13 +8,16 @@ import com.example.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
@@ -25,17 +28,18 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image createImage(ImageDTO image) {
-        List<Tag> allTags = mapTagsToList(image.tags());
-        Image img = new Image(image.name(), allTags);
-        img.setTags(allTags);
-        //tagRepository.save(allTags);
+        List<Tag> images = image.tags();
+        Image img = new Image();
+        img.setName(image.name());
+        img.setTags(image.tags());
+        tagRepository.saveAll(images);
         Image imgGotten = imageRepository.save(img);
-        return img;
+        return imgGotten;
     }
 
     private List<Tag> mapTagsToList(Set<Tag> tags) {
-
-        return null;
+        List<Tag> tagList = new ArrayList<>(tags);
+        return tagList;
     }
 
     @Override
