@@ -2,8 +2,8 @@ package com.example.dto;
 
 import com.example.entities.Tag;
 
-import java.util.Set;
+import java.util.List;
 
-public record ImageDTO (String name, Set<Tag> tags) {
+public record ImageDTO (String name, List<Tag> tags) {
 
 }
