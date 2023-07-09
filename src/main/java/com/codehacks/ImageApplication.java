@@ -1,4 +1,4 @@
-package com.example;
+package com.codehacks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

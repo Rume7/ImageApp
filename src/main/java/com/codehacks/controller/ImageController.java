@@ -1,8 +1,8 @@
-package com.example.controller;
+package com.codehacks.controller;
 
-import com.example.dto.ImageDTO;
-import com.example.entities.Image;
-import com.example.service.ImageService;
+import com.codehacks.dto.ImageDTO;
+import com.codehacks.entities.Image;
+import com.codehacks.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class ImageController {
     }
 
     @PutMapping("/update/{id}")
-    public Image updateImage(@RequestBody Image image, @PathVariable Long id) {
+    public Image updateImage(@RequestBody ImageDTO image, @PathVariable Long id) {
         return imageService.updateImage(image, id);
     }
 

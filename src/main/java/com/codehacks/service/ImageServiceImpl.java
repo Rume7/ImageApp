@@ -1,10 +1,10 @@
-package com.example.service;
+package com.codehacks.service;
 
-import com.example.dto.ImageDTO;
-import com.example.entities.Image;
-import com.example.entities.Tag;
-import com.example.repositories.ImageRepository;
-import com.example.repositories.TagRepository;
+import com.codehacks.dto.ImageDTO;
+import com.codehacks.entities.Image;
+import com.codehacks.entities.Tag;
+import com.codehacks.repositories.ImageRepository;
+import com.codehacks.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,8 @@ public class ImageServiceImpl implements ImageService {
         Image img = new Image();
         img.setName(image.name());
         img.setTags(image.tags());
-        tagRepository.saveAll(images);
+        tagRepository.saveAllAndFlush(images);
+
         Image imgGotten = imageRepository.save(img);
         return imgGotten;
     }
@@ -43,7 +44,14 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image updateImage(Image imageDTO, Long id) {
+    public Image updateImage(ImageDTO imageDTO, Long id) {
+        Optional<Image> imageFound = imageRepository.findById(id);
+        if (imageFound.isPresent()) {
+            Image imageRetrieved = imageFound.get();
+            imageRetrieved.setName(imageDTO.name());
+            imageRetrieved.setTags(imageDTO.tags());
+            return imageRetrieved;
+        }
         return null;
     }
 

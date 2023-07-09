@@ -1,7 +1,7 @@
-package com.example.service;
+package com.codehacks.service;
 
-import com.example.dto.ImageDTO;
-import com.example.entities.Image;
+import com.codehacks.dto.ImageDTO;
+import com.codehacks.entities.Image;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ public interface ImageService {
 
     Image createImage(ImageDTO image);
 
-    Image updateImage(Image image, Long id);
+
+    Image updateImage(ImageDTO image, Long id);
 
     List<Image> getAllImages() ;
 
