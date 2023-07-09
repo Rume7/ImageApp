@@ -20,7 +20,4 @@ public class Tag implements Serializable {
 
     @Column(name = "tag_name")
     private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Image image;
 }

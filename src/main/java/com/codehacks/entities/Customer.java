@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,6 +23,9 @@ public class Customer {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private LocalDateTime dateCreated;
 
     @OneToMany(mappedBy = "customer")
     private Set<Media> media;
