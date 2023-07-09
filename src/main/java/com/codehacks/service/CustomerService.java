@@ -41,16 +41,15 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public CustomerDTO updateCustomer(UUID customerId, Customer cust) {
+    public Customer updateCustomer(UUID customerId, CustomerDTO cust) {
         var customer = findOrThrow(customerId);
-        if (cust.getName() != null) {
-            customer.setName(customer.getName());
+        if (cust.name() != null) {
+            customer.setName(cust.name());
         }
-        if (cust.getMedia() != null) {
-            customer.setMedia(cust.getMedia());
+        if (cust.mediaSet() != null) {
+            customer.setMedia(cust.mediaSet());
         }
-        customerRepository.save(customer);
-        return customerDTOMapper.apply(customer);
+        return customerRepository.save(customer);
     }
 
     private Customer findOrThrow(final UUID id) {

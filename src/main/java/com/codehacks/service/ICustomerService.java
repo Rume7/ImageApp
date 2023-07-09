@@ -14,5 +14,5 @@ public interface ICustomerService {
 
     List<Customer> getAllCustomers();
 
-    CustomerDTO updateCustomer(UUID customerId, Customer customerRequest);
+    Customer updateCustomer(UUID customerId, CustomerDTO customer);
 }
