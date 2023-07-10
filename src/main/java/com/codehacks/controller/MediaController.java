@@ -16,12 +16,12 @@ import java.util.UUID;
 @RequestMapping("api/v1/images")
 public class MediaController {
 
-    private final MediaService imageService;
+    private final MediaService mediaService;
 
     @PostMapping("/{customerId}/upload")
     public ResponseEntity<Media> uploadImage(@PathVariable("customerId") UUID customerId,
             @RequestParam("image") MultipartFile image) throws IOException {
-        Media media = imageService.uploadImageForCustomer(customerId, image);
+        Media media = mediaService.uploadImageForCustomer(customerId, image);
         return new ResponseEntity<>(media, HttpStatus.CREATED);
     }
 }
