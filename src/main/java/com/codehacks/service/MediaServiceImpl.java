@@ -1,5 +1,7 @@
 package com.codehacks.service;
 
+import com.codehacks.dto.MediaDTO;
+import com.codehacks.dto.TagDTO;
 import com.codehacks.entities.Customer;
 import com.codehacks.entities.Media;
 import com.codehacks.entities.Person;
@@ -31,10 +33,13 @@ public class MediaServiceImpl implements MediaService {
     @Autowired
     private final TagRepository tagRepository;
 
-    public Media uploadImageForCustomer(Integer customerId, MultipartFile image) throws IOException {
+    public MediaDTO uploadImageForCustomer(Integer customerId, MultipartFile image) throws IOException {
         Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isPresent()) {
-            return uploadImage(image, customer.get());
+            Media media = uploadImage(image, customer.get());
+            MediaDTO mediaDTO = new MediaDTO(media.getId(), media.getType(),
+                    media.getDate(), media.getTags(), media.getCustomer());
+            return mediaDTO;
         }
         throw new ResourceNotFoundException();
     }
@@ -48,16 +53,17 @@ public class MediaServiceImpl implements MediaService {
         return mediaRepository.saveAndFlush(media);
     }
 
-    public Set<Tag> tagAnImage(List<Person> names, Integer mediaId) {
+    public Set<TagDTO> tagAnImage(List<Person> names, Integer mediaId) {
         Optional<Media> media = mediaRepository.findById(mediaId);
         if (media.isPresent()) {
-            Set<Tag> allTags = new HashSet<>();
+            Set<TagDTO> allTags = new HashSet<>();
             for (Person person : names) {
                 Tag aTag = new Tag();
                 aTag.setName(person.toString());
                 aTag.setMedia(media.get());
-                allTags.add(aTag);
-                tagRepository.saveAndFlush(aTag);
+                Tag createdTag = tagRepository.saveAndFlush(aTag);
+                TagDTO tagDTO = new TagDTO(createdTag.getTagId(), createdTag.getName());
+                allTags.add(tagDTO);
             }
             return allTags;
         }

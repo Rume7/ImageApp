@@ -1,5 +1,7 @@
 package com.codehacks.service;
 
+import com.codehacks.dto.MediaDTO;
+import com.codehacks.dto.TagDTO;
 import com.codehacks.entities.Media;
 import com.codehacks.entities.Person;
 import com.codehacks.entities.Tag;
@@ -11,8 +13,8 @@ import java.util.Set;
 
 public interface MediaService {
 
-    Media uploadImageForCustomer(Integer customerId, MultipartFile image)
+    MediaDTO uploadImageForCustomer(Integer customerId, MultipartFile image)
             throws IOException;
 
-    Set<Tag> tagAnImage(List<Person> names, Integer media);
+    Set<TagDTO> tagAnImage(List<Person> names, Integer media);
 }
