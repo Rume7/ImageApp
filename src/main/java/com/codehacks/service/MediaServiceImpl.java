@@ -26,7 +26,7 @@ public class MediaServiceImpl implements MediaService {
     private final CustomerRepository customerRepository;
 
     public Media uploadImageForCustomer(UUID customerId, MultipartFile image) throws IOException {
-        Optional<Customer> customer = customerRepository.getCustomerById(customerId);
+        Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isPresent()) {
             return uploadImage(image, customer.get());
         }
