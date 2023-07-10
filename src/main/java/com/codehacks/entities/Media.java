@@ -30,8 +30,7 @@ public class Media {
     @Column(name = "img_uploaded")
     private byte[] image;
 
-    @Column
-    @OneToMany(mappedBy = "media_id", cascade = CascadeType.ALL)
+    @OneToMany
     private Set<Tag> tags;
 
     @ManyToOne
