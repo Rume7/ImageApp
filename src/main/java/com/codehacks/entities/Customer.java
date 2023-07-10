@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer")
 public class Customer {
@@ -29,4 +28,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<Media> media;
+
+    public Customer() {
+        this.dateCreated = LocalDateTime.now();
+    }
 }
