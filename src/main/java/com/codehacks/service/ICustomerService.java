@@ -10,9 +10,9 @@ public interface ICustomerService {
 
     Customer createCustomer(CustomerDTO customer);
 
-    Customer getCustomerById(UUID customerId);
+    Customer getCustomerById(Integer customerId);
 
     List<Customer> getAllCustomers();
 
-    Customer updateCustomer(UUID customerId, CustomerDTO customer);
+    Customer updateCustomer(Integer customerId, CustomerDTO customer);
 }
