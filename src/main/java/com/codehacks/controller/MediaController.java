@@ -1,5 +1,7 @@
 package com.codehacks.controller;
 
+import com.codehacks.dto.MediaDTO;
+import com.codehacks.dto.TagDTO;
 import com.codehacks.entities.Media;
 import com.codehacks.entities.Person;
 import com.codehacks.entities.Tag;
@@ -22,16 +24,16 @@ public class MediaController {
     private final MediaService mediaService;
 
     @PostMapping("/{custId}/upload")
-    public ResponseEntity<Media> uploadImage(@PathVariable("mediaId") Integer custId,
+    public ResponseEntity<MediaDTO> uploadImage(@PathVariable("custId") Integer custId,
             @RequestParam("image") MultipartFile image) throws IOException {
-        Media media = mediaService.uploadImageForCustomer(custId, image);
+        MediaDTO media = mediaService.uploadImageForCustomer(custId, image);
         return new ResponseEntity<>(media, HttpStatus.CREATED);
     }
 
     @PostMapping("/{mediaId}/tag")
-    public ResponseEntity<Set<Tag>> tagAnImage(@RequestBody List<Person> names,
-                                          @PathVariable("mediaId") Integer mediaId) {
-        Set<Tag> tags = mediaService.tagAnImage(names, mediaId);
+    public ResponseEntity<Set<TagDTO>> tagAnImage(@RequestBody List<Person> names,
+                                                  @PathVariable("mediaId") Integer mediaId) {
+        Set<TagDTO> tags = mediaService.tagAnImage(names, mediaId);
         return new ResponseEntity<>(tags, HttpStatus.CREATED);
     }
 }
