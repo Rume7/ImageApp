@@ -21,10 +21,10 @@ public class MediaController {
 
     private final MediaService mediaService;
 
-    @PostMapping("/{mediaId}/upload")
-    public ResponseEntity<Media> uploadImage(@PathVariable("mediaId") Integer mediaId,
+    @PostMapping("/{custId}/upload")
+    public ResponseEntity<Media> uploadImage(@PathVariable("mediaId") Integer custId,
             @RequestParam("image") MultipartFile image) throws IOException {
-        Media media = mediaService.uploadImageForCustomer(mediaId, image);
+        Media media = mediaService.uploadImageForCustomer(custId, image);
         return new ResponseEntity<>(media, HttpStatus.CREATED);
     }
 
