@@ -1,11 +1,8 @@
 package com.codehacks.service;
 
-import com.codehacks.dto.CustomerDTO;
-import com.codehacks.dto.CustomerDTOMapper;
-import com.codehacks.entities.Customer;import com.codehacks.entities.Media;
+import com.codehacks.entities.Customer;
 import com.codehacks.exception.ResourceNotFoundException;
 import com.codehacks.repositories.CustomerRepository;
-import com.codehacks.repositories.MediaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +13,11 @@ import java.util.List;
 public class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
-    private final MediaRepository mediaRepository;
-    private final CustomerDTOMapper customerDTOMapper;
 
     @Override
-    public Customer createCustomer(CustomerDTO customerDTO) {
-        Customer customer = new Customer();
-        customer.setName(customerDTO.name());
+    public Customer createCustomer(Customer customer) {
+        Customer cust = new Customer();
+        cust.setName(customer.getName());
         return customerRepository.save(customer);
     }
 
@@ -37,10 +32,10 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Customer updateCustomer(Integer customerId, CustomerDTO cust) {
+    public Customer updateCustomer(Integer customerId, Customer cust) {
         var customer = findOrThrow(customerId);
-        if (cust.name() != null) {
-            customer.setName(cust.name());
+        if (cust.getName() != null) {
+            customer.setName(cust.getName());
         }
         return customerRepository.save(customer);
     }
