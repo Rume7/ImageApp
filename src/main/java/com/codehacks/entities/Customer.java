@@ -1,24 +1,25 @@
 package com.codehacks.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @Table(name = "customer")
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
+    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private UUID id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -26,10 +27,33 @@ public class Customer {
     @Column(nullable = false)
     private LocalDateTime dateCreated;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<Media> media;
-
     public Customer() {
         this.dateCreated = LocalDateTime.now();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id.equals(customer.id) && name.equals(customer.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
