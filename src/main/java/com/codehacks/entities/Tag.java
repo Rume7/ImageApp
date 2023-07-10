@@ -20,7 +20,7 @@ public class Tag implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long tagId;
+    private Integer tagId;
 
     @Column(name = "tag_name")
     private String name;
@@ -48,5 +48,10 @@ public class Tag implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(tagId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "tagId= " + tagId + ", name= " + name;
     }
 }
