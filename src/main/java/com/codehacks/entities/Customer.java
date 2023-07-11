@@ -3,9 +3,9 @@ package com.codehacks.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 
 @Data
 @Entity
@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @Table(name = "customer")
-public class Customer {
+public final class Customer implements Serializable {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")

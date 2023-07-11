@@ -15,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @JsonSerialize
-public class Tag implements Serializable {
+public final class Tag implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

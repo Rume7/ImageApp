@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CustomerService implements ICustomerService {
+public final class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
 

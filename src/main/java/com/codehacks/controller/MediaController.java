@@ -19,19 +19,19 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/media")
-public class MediaController {
+final class MediaController {
 
     private final MediaService mediaService;
 
     @PostMapping("/{custId}/upload")
-    public ResponseEntity<MediaDTO> uploadImage(@PathVariable("custId") Integer custId,
+    ResponseEntity<MediaDTO> uploadImage(@PathVariable("custId") Integer custId,
             @RequestParam("image") MultipartFile image) throws IOException {
         MediaDTO media = mediaService.uploadImageForCustomer(custId, image);
         return new ResponseEntity<>(media, HttpStatus.CREATED);
     }
 
     @PostMapping("/{mediaId}/tag")
-    public ResponseEntity<Set<TagDTO>> tagAnImage(@RequestBody List<Person> names,
+    ResponseEntity<Set<TagDTO>> tagAnImage(@RequestBody List<Person> names,
                                                   @PathVariable("mediaId") Integer mediaId) {
         Set<TagDTO> tags = mediaService.tagAnImage(names, mediaId);
         return new ResponseEntity<>(tags, HttpStatus.CREATED);

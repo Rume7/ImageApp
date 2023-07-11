@@ -24,7 +24,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class MediaServiceImpl implements MediaService {
+public final class MediaServiceImpl implements MediaService {
 
     @Autowired
     private final CustomerRepository customerRepository;
